@@ -11,14 +11,20 @@
 
     // POST (it is more secure)
     // htmlspecialchars($_POST['email']) is for prevented xss attacks
+
+    $title = $email = $ingredients = ''; 
+    $erros = array('email' => '', 'title' => '', 'ingredients' => '');
+
     if( isset($_POST['submit']) ) {  
         // check if the user enter all the fields (we could do it in the frontend usind requiered property of html5)
+        // check if it's empty
         if ( empty( $_POST['email'] ) ) {
-            echo 'An email is required <br/>';
+            $erros['email'] =  'An email is required <br/>';
         } else {
+            // check if it's wrong
             $email = $_POST['email'];
             if( !filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {  // if it's not a validate email the condition will be false, but with ! operator it'll become true
-                echo 'email must be a valid email address';
+                $erros['email'] =  'email must be a valid email address';
             } else {
 
             }
@@ -26,21 +32,25 @@
 
         // check title
         if ( empty( $_POST['title'] ) ) {
-            echo 'An title is required <br/>';
+            // check if it's empty
+            $erros['title'] = 'An title is required <br/>';
         } else {
+            // check if it's wrong
             $title =  $_POST['title']; 
             if ( !preg_match( '/^[a-zA-Z\s]+$/', $title ) ) {// all the alphabet, wall spaces and a least one character long
-                echo 'Title must be letters and spaces only';
+                $erros['title'] = 'A title must be letters and spaces only';
             }
         }
 
         // check ingredients
         if ( empty( $_POST['ingredients'] ) ) {
-            echo 'At leats one ingredient is required <br/>';
+            // check if it's empty
+            $erros['ingredients'] = 'At leats one ingredient is required <br/>';
         } else {
+            // check if it's wrong
             $ingredients =  $_POST['ingredients']; 
             if ( !preg_match( '/^([a-zA-Z\s]+)(,\s*[a-zA-Z\s]*)*$/', $ingredients ) ) {
-                echo 'ingredients must be a comma separeted space';
+                $erros['ingredients'] = 'ingredients must be a comma separeted space';
             }
         }
         // end of the POST check
@@ -54,17 +64,27 @@
 
   <section class="container grey-text">
     <h4 class="center">Add a Pizza</h4>
+
     <form class="white" action="add.php" method="POST" >
+
         <label>Your Email:</label>
-        <input type="text" name="email">
+        <input type="text" name="email" value="<?php echo $email ?>">
+        <div class="red-text"><?php echo $erros['email'] ?></div>
+    
         <label>Pizza title:</label>
-        <input type="text" name="title">
+        <input type="text" name="title" value="<?php echo $title ?>">
+        <div class="red-text"><?php echo $erros['title'] ?></div>
+    
         <label>Ingredients (comma separedted):</label>
-        <input type="text" name="ingredients">
+        <input type="text" name="ingredients" value="<?php echo $ingredients ?>">
+        <div class="red-text"><?php echo $erros['ingredients'] ?></div>
+    
         <div class="center">
             <input type="submit" name="submit" value="submit" class="btn brand z-depth-0">
         </div>
+    
     </form>
+
   </section>
 
   <?php include('templates/footer.php') ?>
