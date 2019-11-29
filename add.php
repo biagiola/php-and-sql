@@ -68,15 +68,15 @@
     <form class="white" action="add.php" method="POST" >
 
         <label>Your Email:</label>
-        <input type="text" name="email" value="<?php echo $email ?>">
+        <input type="text" name="email" value="<?php echo htmlspecialchars($email) ?>">
         <div class="red-text"><?php echo $erros['email'] ?></div>
     
         <label>Pizza title:</label>
-        <input type="text" name="title" value="<?php echo $title ?>">
+        <input type="text" name="title" value="<?php echo htmlspecialchars($title) ?>">
         <div class="red-text"><?php echo $erros['title'] ?></div>
     
         <label>Ingredients (comma separedted):</label>
-        <input type="text" name="ingredients" value="<?php echo $ingredients ?>">
+        <input type="text" name="ingredients" value="<?php echo htmlspecialchars($ingredients) ?>">
         <div class="red-text"><?php echo $erros['ingredients'] ?></div>
     
         <div class="center">
