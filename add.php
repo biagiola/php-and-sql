@@ -10,11 +10,27 @@
     } */
 
     // POST (it is more secure)
+    // htmlspecialchars is for prevented xss attacks
     if( isset($_POST['submit']) ) {  
-        // htmlspecialchars is for prevented xss attacks
-        echo htmlspecialchars( $_POST['email'] );
-        echo htmlspecialchars( $_POST['title'] );
-        echo htmlspecialchars( $_POST['ingredients'] );
+        // check if the user enter all the fields (we could do it in the frontend usind requiered property of html5)
+        if ( empty( $_POST['email'] ) ) {
+            echo 'An email is required <br/>';
+        } else {
+            echo htmlspecialchars( $_POST['email'] ); 
+        }
+        // check title
+        if ( empty( $_POST['title'] ) ) {
+            echo 'An title is required <br/>';
+        } else {
+            echo htmlspecialchars( $_POST['title'] ); 
+        }
+        // check ingredients
+        if ( empty( $_POST['ingredients'] ) ) {
+            echo 'At leats one ingredient is required <br/>';
+        } else {
+            echo htmlspecialchars( $_POST['ingredients'] ); 
+        }
+        // end of the POST check
     }
 
 ?>
