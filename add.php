@@ -53,6 +53,16 @@
                 $erros['ingredients'] = 'ingredients must be a comma separeted space';
             }
         }
+
+        // array_filter interates each element of the array with a callback function 
+        // in this case we dont define the callback. If all array's elements are empty
+        // array_filter will value it as false 
+        if ( array_filter( $erros ) ) { 
+            // echo 'erros in the form';
+        } else {
+            // echo 'form is valid';
+            header('Location: index.php'); // we redirect to the index page
+        }
         // end of the POST check
     }
 
