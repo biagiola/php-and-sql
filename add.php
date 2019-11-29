@@ -11,9 +11,10 @@
 
     // POST (it is more secure)
     if( isset($_POST['submit']) ) {  
-        echo $_POST['email'];
-        echo $_POST['title'];
-        echo $_POST['ingredients'];
+        // htmlspecialchars is for prevented xss attacks
+        echo htmlspecialchars( $_POST['email'] );
+        echo htmlspecialchars( $_POST['title'] );
+        echo htmlspecialchars( $_POST['ingredients'] );
     }
 
 ?>
