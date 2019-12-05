@@ -12,6 +12,8 @@
     // POST (it is more secure)
     // htmlspecialchars($_POST['email']) is for prevented xss attacks
 
+    include('./config/db_connect.php');
+
     // we initialize empty and show thus the first time.
     $title = $email = $ingredients = ''; 
     $erros = array('email' => '', 'title' => '', 'ingredients' => '');
@@ -60,8 +62,24 @@
         if ( array_filter( $erros ) ) { 
             // echo 'erros in the form';
         } else {
-            // echo 'form is valid';
-            header('Location: index.php'); // we redirect to the index page
+            
+            // evoid sql injections
+            $title = mysqli_real_escape_string($conn, $_POST['title']);
+            $email = mysqli_real_escape_string($conn, $_POST['email']);
+            $ingredients = mysqli_real_escape_string($conn, $_POST['ingredients']);
+
+            // create sql
+            $sql = "INSERT INTO pizzas(title, email, ingredients) VALUES ('$title', '$email', '$ingredients') ";
+
+            // save to db and check
+            if( mysqli_query($conn, $sql) ) {
+                // success
+                header('Location: index.php'); // we redirect to the index page
+            } else {
+                // error
+                echo 'query error: ' . mysqli_error($conn);
+            }
+
         }
         // end of the POST check
     }
