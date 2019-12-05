@@ -12,11 +12,13 @@
     // POST (it is more secure)
     // htmlspecialchars($_POST['email']) is for prevented xss attacks
 
+    // we initialize empty and show thus the first time.
     $title = $email = $ingredients = ''; 
     $erros = array('email' => '', 'title' => '', 'ingredients' => '');
 
     if( isset($_POST['submit']) ) {  
         // check if the user enter all the fields (we could do it in the frontend usind requiered property of html5)
+        
         // check if it's empty
         if ( empty( $_POST['email'] ) ) {
             $erros['email'] =  'An email is required <br/>';
@@ -25,9 +27,7 @@
             $email = $_POST['email'];
             if( !filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {  // if it's not a validate email the condition will be false, but with ! operator it'll become true
                 $erros['email'] =  'email must be a valid email address';
-            } else {
-
-            }
+            } 
         }
 
         // check title
