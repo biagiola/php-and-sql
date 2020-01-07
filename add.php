@@ -93,12 +93,12 @@
   <section class="container grey-text">
     <h4 class="center">Add a Pizza</h4>
 
-    <form class="white" action="add.php" method="POST" >
+    <form class="white" action="add.php" method="POST" ><!-- when we click the submit button or press enter que execute the php code above -->
 
         <label>Your Email:</label>
-        <input type="text" name="email" value="<?php echo htmlspecialchars($email) ?>">
-        <div class="red-text"><?php echo $erros['email'] ?></div>
-    
+        <input type="text" name="email" value="<?php echo htmlspecialchars($email) ?>"> <!--at the beginning $email, $title and $ingredients are empty. That is just when the user enter a wrong value and then he can changed it modifing the olds values insted to write it all again.-->
+        <div class="red-text"><?php echo $erros['email'] ?></div><!-- errors array is also empty at the beginning -->
+        
         <label>Pizza title:</label>
         <input type="text" name="title" value="<?php echo htmlspecialchars($title) ?>">
         <div class="red-text"><?php echo $erros['title'] ?></div>
